@@ -64,7 +64,7 @@
             width: 100%;
             flex-grow: 1;
             height: calc(100vh - 60px);
-            background: #000;
+            background: #000000;
             border: none;
         }
 
@@ -237,7 +237,7 @@
             <div class="info-content">
                 <h2 class="info-main-title">Почему рекомендуется посещать профессионального косметолога. Мнение специалистов центра</h2>
                 <ul class="info-list">
-                    <li>Процедуры аппаратной косметологии на оборудовании экспертного класса от ведущих мировых производителей могут проводиться в любом возрасте и решать широкий спектр проблем: возрастные изменения, покраснения, акне и купероз, потеря тонуса и упругости кожи, отечность, целлюлит и т п.</li>
+                    <li>Процедуры аппаратной косметологии на оборудовании экспертного класса от ведущих мировых производителей могут проводиться в любом возрасте и решать широкий спектр проблем: возрастные изменения, покраснения, акне и купероз, потеря тонуса и упругости кожи, отечность, целлюлит и т. п.</li>
                     <li>С помощью инъекционных методик мы можем разгладить морщины, провести объёмное моделирование, увлажнить кожу, ввести активные вещества в поверхностные и средние слои кожи, запустить процессы омоложения.</li>
                     <li>Лазерное и фотоомоложение помогут запустить процесс синтеза собственного коллагена, улучшить светооптические свойства кожи, а также получить максимальный эффект подтяжки лица без уколов и длительного восстановительного периода.</li>
                     <li>Курс процедур лазерной эпиляции поможет навсегда избавиться от проблем нежелательных волос.</li>
@@ -411,8 +411,8 @@
         <div class="game-hud">
             <button class="game-close-btn" id="js-close-game">Выйти из игры</button>
         </div>
-        <!-- Исправлено: убраны невалидные свойства, добавлены стандартные параметры песочницы -->
-<iframe id="game-frame" src="" allow="autoplay; fullscreen" sandbox="allow-scripts allow-same-origin allow-pointer-lock" frameborder="0"></iframe>
+        <!-- ИСПРАВЛЕНО: Атрибут sandbox полностью удален для корректной работы WebAssembly -->
+        <iframe id="game-frame" src="" allow="autoplay; fullscreen;" frameborder="0"></iframe>
     </div>
 
     <script>
@@ -434,7 +434,7 @@
         const gameCloseBtn = document.getElementById('js-close-game');
         const gameFrame = document.getElementById('game-frame');
 
-        // Эмулятор DOOM Shareware на базе JS-DOS/WebAssembly
+        // Эмулятор DOOM Shareware
         const gameUrl = "https://dos.zone/player/?bundleUrl=https%3A%2F%2Fcdn.dos.zone%2Fcustom%2Fdos%2Fdoom.jsdos?anonymous=1"; 
 
         startGameBtn.addEventListener('click', () => {
@@ -449,7 +449,7 @@
         gameCloseBtn.addEventListener('click', () => {
             gameOverlay.classList.remove('active');
             document.body.classList.remove('no-scroll');
-            gameFrame.src = ""; // Полностью выгружаем эмулятор из ОЗУ
+            gameFrame.src = ""; 
         });
     </script>
 </body>
