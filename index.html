@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEDI — Косметология и Спецпредложения</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    
+    <style>
+        /* Зеленая кнопка в стиле Майнкрафта */
+        .btn-minecraft {
+            background: #47892b;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 18px 36px;
+            border: none;
+            border-bottom: 4px solid #2c5918;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            box-shadow: 0 4px 15px rgba(71, 137, 43, 0.4);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-minecraft:hover {
+            background: #529c32;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(71, 137, 43, 0.6);
+        }
+
+        .btn-minecraft:active {
+            transform: translateY(2px);
+            border-bottom-width: 0;
+            box-shadow: none;
+        }
+
+        /* Полноэкранный оверлей для эмулятора */
+        .mc-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #000000;
+            z-index: 10000;
+            display: none;
+            flex-direction: column;
+        }
+
+        .mc-overlay.active {
+            display: flex;
+        }
+
+        /* Фрейм с игрой */
+        #mc-emulator-frame {
+            width: 100%;
+            flex-grow: 1;
+            height: calc(100vh - 60px);
+            background: #000;
+            border: none;
+        }
+
+        /* Верхняя панель управления над эмулятором */
+        .mc-hud {
+            background: #141414;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            border-bottom: 2px solid #2e2e2e;
+            height: 60px;
+            box-sizing: border-box;
+        }
+
+        .mc-close-btn {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-family: 'Inter', sans-serif;
+            font-weight: bold;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #991b1b;
+            transition: background 0.2s;
+        }
+
+        .mc-close-btn:hover {
+            background: #ef4444;
+        }
+
+        .mc-close-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #991b1b;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="top-bar">
+                <div class="logo">
+                    <img src="img/logo.png" alt="MEDI Логотип">
+                </div>
+                
+                <button class="burger-btn" id="js-burger" aria-label="Открыть меню">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <div class="header-mobile-wrapper" id="js-mobile-menu">
+                    <div class="contacts">
+                        <a href="tel:+71234567890" class="phone">+7 (123) 456 78 90</a>
+                        <button class="btn-salons">Наши salons <span class="icon-plus">+</span></button>
+                        <button class="btn-accessible">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            <span>Версия для слабовидящих</span>
+                        </button>
+                    </div>
+                    <div class="socials">
+                        <a href="#" class="social-link"><img src="img/vk.png" alt="ВКонтакте"></a>
+                        <a href="#" class="social-link"><img src="img/Vector.png" alt="YouTube"></a>
+                        <a href="#" class="social-link"><img src="img/facebook.png" alt="Facebook"></a>
+                        <a href="#" class="social-link"><img src="img/instagram.png" alt="Instagram"></a>
+                    </div>
+                    
+                    <nav class="main-nav">
+                        <ul class="nav-list">
+                            <li><a href="#" class="nav-item active">Косметология</a></li>
+                            <li><a href="#" class="nav-item">Пластическая хирургия</a></li>
+                            <li><a href="#" class="nav-item">Стоматология</a></li>
+                            <li><a href="#" class="nav-item">Лазерная медицина</a></li>
+                            <li><a href="#" class="nav-item">Контакты</a></li>
+                        </ul>
+                        <button class="btn-appointment">Запись на приём</button>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <h1 class="hero-title">Косметология</h1>
+                <p class="hero-text">
+                    Современный мир диктует новые законы: бизнес-ухоженность, лицо и тело, стройная, подтянутая фигура — сегодня это неотъемлемые черты привлекательной внешности, характеризующие человека благополучного и успешного.
+                </p>
+                <button class="btn-more">ПОДРОБНЕЕ</button>
+                
+                <div class="slider-arrows">
+                    <button class="arrow prev">&larr;</button>
+                    <button class="arrow next">&rarr;</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="img/pic1.png" alt="Процедура">
+            </div>
+        </div>
+        <div class="container">
+            <div class="hero-tabs-wrapper">
+                <div class="hero-tabs">
+                    <div class="tab active">Комплексные процедуры</div>
+                    <div class="tab">Центр обучения</div>
+                    <div class="tab">VIP клиентам</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="container features-grid">
+            <div class="card-innovation">
+                <div class="card-innovation-content">
+                    <span class="badge">Инновации</span>
+                    <h2 class="card-title">Мы практикуем новый курс процедур аппаратной косметологии</h2>
+                    <a href="#" class="card-link">ПОДРОБНЕЕ &rarr;</a>
+                </div>
+                <div class="card-img-bottom">
+                    <img src="img/asas.png" alt="Инновации">
+                </div>
+            </div>
+            
+            <div class="card-stats">
+                <span class="badge outline">Эстетика красоты</span>
+                <div class="stats-wrapper">
+                    <div class="stats-data">
+                        <div class="stat-item">
+                            <span class="stat-num">78</span>
+                            <span class="stat-desc">Современных центра в странах СНГ</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num">78</span>
+                            <span class="stat-desc">Современных центра в странах СНГ</span>
+                        </div>
+                        <div class="stat-item highlight">
+                            <span class="stat-num">20</span>
+                            <span class="stat-desc"><strong>Уникальных патентов</strong> в области косметологии</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-num">78</span>
+                            <span class="stat-desc">Современных центра в странах СНГ</span>
+                        </div>
+                    </div>
+                    <div class="patent-document">
+                        <img src="img/Rectangle13.png" alt="Патент">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="info-section">
+        <div class="container info-grid">
+            <div class="news-sidebar">
+                <span class="badge transparent">Новости</span>
+                <div class="news-links-wrapper">
+                    <div class="news-links">
+                        <a href="#" class="news-item active">Why professional cosmetology is recommended. Opinion of center specialists</a>
+                        <a href="#" class="news-item">Стандартизация деятельности клиник в соответствии с ISO 9001:2015.</a>
+                        <a href="#" class="news-item">Индивидуальный подход к каждому пациенту и подбор оптимальных косметологических методик.</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-content">
+                <h2 class="info-main-title">Почему рекомендуется посещать профессионального косметолога. Мнение специалистов центра</h2>
+                <ul class="info-list">
+                    <li>Процедуры аппаратной косметологии на оборудовании экспертного класса от ведущих мировых производителей могут проводиться в любом возрасте и решать широкий спектр проблем: возрастные изменения, покраснения, акне и купероз, потеря тонуса и упругости кожи, отечность, целлюлит и т. п.</li>
+                    <li>С помощью инъекционных методик мы можем разгладить морщины, провести объёмное моделирование, увлажнить кожу, ввести активные вещества в поверхностные и средние слои кожи, запустить процессы омоложения.</li>
+                    <li>Лазерное и фотоомоложение помогут запустить процесс синтеза собственного коллагена, улучшить светооптические свойства кожи, а также получить максимальный эффект подтяжки лица без уколов и длительного восстановительного периода.</li>
+                    <li>Курс процедур лазерной эпиляции поможет навсегда избавиться от проблем нежелательных волос.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="offers-section">
+        <div class="container">
+            <h2 class="offers-main-title">Актуальные спецпредложения</h2>
+            
+            <div class="offers-grid">
+                <div class="offer-card">
+                    <div class="offer-img-box">
+                        <img src="img/1.png" alt="Спецпредложение">
+                        <span class="offer-badge">Косметология</span>
+                    </div>
+                    <div class="offer-footer">
+                        <span class="offer-text">Лазерное и фотоомоложение</span>
+                        <button class="offer-arrow">&rarr;</button>
+                    </div>
+                </div>
+
+                <div class="offer-card">
+                    <div class="offer-img-box">
+                        <img src="img/2.png" alt="Спецпредложение">
+                        <span class="offer-badge">Косметология</span>
+                    </div>
+                    <div class="offer-footer">
+                        <span class="offer-text">Лазерное и фотоомоложение</span>
+                        <button class="offer-arrow">&rarr;</button>
+                    </div>
+                </div>
+
+                <div class="offer-card">
+                    <div class="offer-img-box">
+                        <img src="img/3.png" alt="Спецпредложение">
+                        <span class="offer-badge">Косметология</span>
+                    </div>
+                    <div class="offer-footer">
+                        <span class="offer-text">Лазерное и фотоомоложение</span>
+                        <button class="offer-arrow">&rarr;</button>
+                    </div>
+                </div>
+
+                <div class="offer-card">
+                    <div class="offer-img-box">
+                        <img src="img/4.png" alt="Спецпредложение">
+                        <span class="offer-badge">Косметология</span>
+                    </div>
+                    <div class="offer-footer">
+                        <span class="offer-text">Лазерное и фотоомоложение</span>
+                        <button class="offer-arrow">&rarr;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-main-grid">
+            <div class="footer-links-col">
+                <h3 class="footer-col-title">Услуги</h3>
+                <ul class="footer-menu">
+                    <li><a href="#">Косметология</a></li>
+                    <li><a href="#">Пластическая хирургия</a></li>
+                    <li><a href="#">Стоматология</a></li>
+                    <li><a href="#">Лазерная медицина</a></li>
+                </ul>
+                <h3 class="footer-col-title margin-top">Услуги</h3>
+                <ul class="footer-menu">
+                    <li><a href="#">Косметология</a></li>
+                    <li><a href="#">Пластическая хирургия</a></li>
+                    <li><a href="#">Стоматология</a></li>
+                    <li><a href="#">Лазерная медицина</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-col">
+                <h3 class="footer-col-title">Услуги</h3>
+                <ul class="footer-menu">
+                    <li><a href="#">Косметология</a></li>
+                    <li><a href="#">Пластическая хирургия</a></li>
+                    <li><a href="#">Стоматология</a></li>
+                    <li><a href="#">Лазерная медицина</a></li>
+                </ul>
+                <h3 class="footer-col-title margin-top">Услуги</h3>
+                <ul class="footer-menu">
+                    <li><a href="#">Косметология</a></li>
+                    <li><a href="#">Пластическая хирургия</a></li>
+                    <li><a href="#">Стоматология</a></li>
+                    <li><a href="#">Лазерная медицина</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links-col">
+                <h3 class="footer-col-title">Услуги</h3>
+                <ul class="footer-menu">
+                    <li><a href="#">Косметология</a></li>
+                    <li><a href="#">Пластическая хирургия</a></li>
+                    <li><a href="#">Стоматология</a></li>
+                    <li><a href="#">Лазерная медицина</a></li>
+                </ul>
+                <h3 class="footer-col-title margin-top">Услуги</h3>
+                <ul class="footer-menu">
+                    <li><a href="#">Косметология</a></li>
+                    <li><a href="#">Пластическая хирургия</a></li>
+                    <li><a href="#">Стоматология</a></li>
+                    <li><a href="#">Лазерная медицина</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contacts-col">
+                <div class="contact-block">
+                    <span class="contact-label">ТЕЛЕФОН</span>
+                    <a href="tel:+78121234567" class="contact-value phone-large">+7 (812) 123-45-67</a>
+                </div>
+
+                <div class="contact-block">
+                    <span class="contact-label">АДРЕС</span>
+                    <p class="contact-value">Невский пр. 140, пом. 10</p>
+                    <button class="btn-route">КАК ПРОЕХАТЬ?</button>
+                </div>
+
+                <div class="contact-block">
+                    <span class="contact-label">АДРЕС</span>
+                    <p class="contact-value">Большой пр. 12</p>
+                    <button class="btn-route">КАК ПРОЕХАТЬ?</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-bottom-flex">
+                <div class="copyright">
+                    (c) 2021. Центр косметологии. Все права защищены.<br>
+                    Наши сертификаты на осуществление деятельности. Патенты на использование технологий.
+                </div>
+                <div class="policy">
+                    <a href="#">Политика конфиденциальности</a>
+                </div>
+                <div class="footer-btn-container">
+                    <button class="btn-accessible">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        ВЕРСИЯ ДЛЯ СЛАБОВИДЯЩИХ
+                    </button>
+                </div>
+                <div class="footer-socials">
+                    <a href="#" class="f-soc"><img src="img/vk.png" alt="VK"></a>
+                    <a href="#" class="f-soc"><img src="img/Vector.png" alt="YT"></a>
+                    <a href="#" class="f-soc"><img src="img/facebook.png" alt="FB"></a>
+                    <a href="#" class="f-soc"><img src="img/instagram.png" alt="IG"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div style="text-align: center; padding: 40px 20px; background: #1a1a1a;">
+        <button class="btn-minecraft" id="js-start-mc">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 10px; vertical-align: middle;">
+                <path d="M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm2 4v4h4V6H6zm8 0v4h4V6h-4zm-4 6H6v4h4v-4zm4 0v4h4v-4z"/>
+            </svg>
+            ПОЛНОЦЕННЫЙ MINECRAFT ЭМУЛЯТОР
+        </button>
+    </div>
+
+    <div class="mc-overlay" id="js-mc-overlay">
+        <div class="mc-hud">
+            <button class="mc-close-btn" id="js-close-mc">Выйти из игры</button>
+        </div>
+        <!-- ИСПРАВЛЕНО: Добавлены расширенные права allow и песочница sandbox для WebGL/скриптов -->
+        <iframe id="mc-emulator-frame" src="" allow="autoplay; fullscreen; pointer-lock; gamepad; xr-spatial-tracking;" sandbox="allow-scripts allow-same-origin" frameborder="0"></iframe>
+    </div>
+
+    <script>
+        // --- Мобильное меню-бургер ---
+        const burgerBtn = document.getElementById('js-burger');
+        const mobileMenu = document.getElementById('js-mobile-menu');
+
+        if (burgerBtn && mobileMenu) {
+            burgerBtn.addEventListener('click', () => {
+                burgerBtn.classList.toggle('active');
+                mobileMenu.classList.toggle('open');
+                document.body.classList.toggle('no-scroll');
+            });
+        }
+
+        // --- Движок инициализации эмулятора Minecraft ---
+        const startMcBtn = document.getElementById('js-start-mc');
+        const mcOverlay = document.getElementById('js-mc-overlay');
+        const mcCloseBtn = document.getElementById('js-close-mc');
+        const mcFrame = document.getElementById('mc-emulator-frame');
+
+        // ИСПРАВЛЕНО: Ссылка заменена на стабильное CORS-зеркало, разрешающее встраивание в сторонние iframe
+        const emulatorUrl = "https://g.eaglercraft.com/v1.8/"; 
+
+        startMcBtn.addEventListener('click', () => {
+            mcOverlay.classList.add('active');
+            document.body.classList.add('no-scroll');
+            
+            // Ленивая загрузка
+            if (!mcFrame.src) {
+                mcFrame.src = emulatorUrl;
+            }
+        });
+
+        mcCloseBtn.addEventListener('click', () => {
+            mcOverlay.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+            
+            // Очищаем фрейм, чтобы игра не жрала оперативку в фоне
+            mcFrame.src = ""; 
+        });
+    </script>
+</body>
+</html>
