@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MEDI — Косметология и Спецпредложения</title>
+    <title>MEDI — Косметология и Ретро-Зона</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
     
     <style>
-        /* Зеленая кнопка в стиле Майнкрафта */
-        .btn-minecraft {
-            background: #47892b;
+        /* Стильная кнопка для запуска DOOM */
+        .btn-doom {
+            background: #991b1b;
             color: #ffffff;
             font-family: 'Inter', sans-serif;
             font-size: 16px;
@@ -20,30 +20,30 @@
             letter-spacing: 1px;
             padding: 18px 36px;
             border: none;
-            border-bottom: 4px solid #2c5918;
+            border-bottom: 4px solid #450a0a;
             border-radius: 4px;
             cursor: pointer;
             transition: all 0.1s ease;
-            box-shadow: 0 4px 15px rgba(71, 137, 43, 0.4);
+            box-shadow: 0 4px 15px rgba(153, 27, 27, 0.4);
             display: inline-flex;
             align-items: center;
             justify-content: center;
         }
 
-        .btn-minecraft:hover {
-            background: #529c32;
+        .btn-doom:hover {
+            background: #b91c1c;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(71, 137, 43, 0.6);
+            box-shadow: 0 6px 20px rgba(153, 27, 27, 0.6);
         }
 
-        .btn-minecraft:active {
+        .btn-doom:active {
             transform: translateY(2px);
             border-bottom-width: 0;
             box-shadow: none;
         }
 
-        /* Полноэкранный оверлей для эмулятора */
-        .mc-overlay {
+        /* Полноэкранный оверлей для игры */
+        .game-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -55,12 +55,12 @@
             flex-direction: column;
         }
 
-        .mc-overlay.active {
+        .game-overlay.active {
             display: flex;
         }
 
         /* Фрейм с игрой */
-        #mc-emulator-frame {
+        #game-frame {
             width: 100%;
             flex-grow: 1;
             height: calc(100vh - 60px);
@@ -68,8 +68,8 @@
             border: none;
         }
 
-        /* Верхняя панель управления над эмулятором */
-        .mc-hud {
+        /* Панель управления над эмулятором */
+        .game-hud {
             background: #141414;
             padding: 10px 20px;
             display: flex;
@@ -80,7 +80,7 @@
             box-sizing: border-box;
         }
 
-        .mc-close-btn {
+        .game-close-btn {
             background: #dc2626;
             color: white;
             border: none;
@@ -94,11 +94,11 @@
             transition: background 0.2s;
         }
 
-        .mc-close-btn:hover {
+        .game-close-btn:hover {
             background: #ef4444;
         }
 
-        .mc-close-btn:active {
+        .game-close-btn:active {
             transform: translateY(2px);
             box-shadow: 0 1px 0 #991b1b;
         }
@@ -237,7 +237,7 @@
             <div class="info-content">
                 <h2 class="info-main-title">Почему рекомендуется посещать профессионального косметолога. Мнение специалистов центра</h2>
                 <ul class="info-list">
-                    <li>Процедуры аппаратной косметологии на оборудовании экспертного класса от ведущих мировых производителей могут проводиться в любом возрасте и решать широкий спектр проблем: возрастные изменения, покраснения, акне и купероз, потеря тонуса и упругости кожи, отечность, целлюлит и т. п.</li>
+                    <li>Процедуры аппаратной косметологии на оборудовании экспертного класса от ведущих мировых производителей могут проводиться в любом возрасте и решать широкий спектр проблем: возрастные изменения, покраснения, акне и купероз, потеря тонуса и упругости кожи, отечность, целлюлит и т п.</li>
                     <li>С помощью инъекционных методик мы можем разгладить морщины, провести объёмное моделирование, увлажнить кожу, ввести активные вещества в поверхностные и средние слои кожи, запустить процессы омоложения.</li>
                     <li>Лазерное и фотоомоложение помогут запустить процесс синтеза собственного коллагена, улучшить светооптические свойства кожи, а также получить максимальный эффект подтяжки лица без уколов и длительного восстановительного периода.</li>
                     <li>Курс процедур лазерной эпиляции поможет навсегда избавиться от проблем нежелательных волос.</li>
@@ -396,21 +396,23 @@
         </div>
     </footer>
 
-    <div style="text-align: center; padding: 40px 20px; background: #1a1a1a;">
-        <button class="btn-minecraft" id="js-start-mc">
+    <!-- Кнопка запуска DOOM -->
+    <div style="text-align: center; padding: 40px 20px; background: #111111;">
+        <button class="btn-doom" id="js-start-game">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 10px; vertical-align: middle;">
-                <path d="M4 2h16a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm2 4v4h4V6H6zm8 0v4h4V6h-4zm-4 6H6v4h4v-4zm4 0v4h4v-4z"/>
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-4H7v-2h2V6h2v4h2v2h-2v4zm6-2h-4v-2h4v2zm0-4h-4V8h4v2z"/>
             </svg>
-            ПОЛНОЦЕННЫЙ MINECRAFT ЭМУЛЯТОР
+            ЗАПУСТИТЬ DOOM (1993)
         </button>
     </div>
 
-    <div class="mc-overlay" id="js-mc-overlay">
-        <div class="mc-hud">
-            <button class="mc-close-btn" id="js-close-mc">Выйти из игры</button>
+    <!-- Игровой оверлей -->
+    <div class="game-overlay" id="js-game-overlay">
+        <div class="game-hud">
+            <button class="game-close-btn" id="js-close-game">Выйти из игры</button>
         </div>
-        <!-- ИСПРАВЛЕНО: Добавлены расширенные права allow и песочница sandbox для WebGL/скриптов -->
-        <iframe id="mc-emulator-frame" src="" allow="autoplay; fullscreen; pointer-lock; gamepad; xr-spatial-tracking;" sandbox="allow-scripts allow-same-origin" frameborder="0"></iframe>
+        <!-- Исправлено: убраны невалидные свойства, добавлены стандартные параметры песочницы -->
+<iframe id="game-frame" src="" allow="autoplay; fullscreen" sandbox="allow-scripts allow-same-origin allow-pointer-lock" frameborder="0"></iframe>
     </div>
 
     <script>
@@ -426,31 +428,28 @@
             });
         }
 
-        // --- Движок инициализации эмулятора Minecraft ---
-        const startMcBtn = document.getElementById('js-start-mc');
-        const mcOverlay = document.getElementById('js-mc-overlay');
-        const mcCloseBtn = document.getElementById('js-close-mc');
-        const mcFrame = document.getElementById('mc-emulator-frame');
+        // --- Логика запуска DOOM ---
+        const startGameBtn = document.getElementById('js-start-game');
+        const gameOverlay = document.getElementById('js-game-overlay');
+        const gameCloseBtn = document.getElementById('js-close-game');
+        const gameFrame = document.getElementById('game-frame');
 
-        // ИСПРАВЛЕНО: Ссылка заменена на стабильное CORS-зеркало, разрешающее встраивание в сторонние iframe
-        const emulatorUrl = "https://g.eaglercraft.com/v1.8/"; 
+        // Эмулятор DOOM Shareware на базе JS-DOS/WebAssembly
+        const gameUrl = "https://dos.zone/player/?bundleUrl=https%3A%2F%2Fcdn.dos.zone%2Fcustom%2Fdos%2Fdoom.jsdos?anonymous=1"; 
 
-        startMcBtn.addEventListener('click', () => {
-            mcOverlay.classList.add('active');
+        startGameBtn.addEventListener('click', () => {
+            gameOverlay.classList.add('active');
             document.body.classList.add('no-scroll');
             
-            // Ленивая загрузка
-            if (!mcFrame.src) {
-                mcFrame.src = emulatorUrl;
+            if (!gameFrame.src) {
+                gameFrame.src = gameUrl;
             }
         });
 
-        mcCloseBtn.addEventListener('click', () => {
-            mcOverlay.classList.remove('active');
+        gameCloseBtn.addEventListener('click', () => {
+            gameOverlay.classList.remove('active');
             document.body.classList.remove('no-scroll');
-            
-            // Очищаем фрейм, чтобы игра не жрала оперативку в фоне
-            mcFrame.src = ""; 
+            gameFrame.src = ""; // Полностью выгружаем эмулятор из ОЗУ
         });
     </script>
 </body>
